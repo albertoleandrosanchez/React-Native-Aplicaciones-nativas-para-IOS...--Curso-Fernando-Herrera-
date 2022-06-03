@@ -1,25 +1,24 @@
-import {createDrawerNavigator} from '@react-navigation/drawer';
 import React from 'react';
-import {SettingsScreen} from '../screens/SettingsScreen';
+
+import {createDrawerNavigator} from '@react-navigation/drawer';
+
 import {StackNavigator} from './StackNavigator';
-import { useEffect from 'react';
+import {SettingsScreen} from '../screens/SettingsScreen';
+import {useWindowDimensions} from 'react-native';
 
 const Drawer = createDrawerNavigator();
 
 export const MenuLateralBasico = () => {
-  return (
-    <Drawer.Navigator initialRouteName="StackNavigator" drawerContent={{
-      activeTintColor: '#e91e63',
-      labelStyle: {
-        fontSize: 15,
-        fontWeight: 'bold',
-        color: '#e91e63',
-      },
-      itemsContainerStyle: {
+  const {width} = useWindowDimensions();
 
-    }>
-      <Drawer.Screen name="StackNavigator" component={StackNavigator} />
-      <Drawer.Screen name="SettingsScreen" component={SettingsScreen} />
+  return (
+    <Drawer.Navigator drawerType={width >= 768 ? 'permanent' : 'front'}>
+      {/* <Drawer.Screen name="StackNavigator" options={{ title: 'Home' }} component={ StackNavigator } /> */}
+      <Drawer.Screen
+        name="SettingsScreen"
+        options={{title: 'Settings'}}
+        component={SettingsScreen}
+      />
     </Drawer.Navigator>
   );
 };

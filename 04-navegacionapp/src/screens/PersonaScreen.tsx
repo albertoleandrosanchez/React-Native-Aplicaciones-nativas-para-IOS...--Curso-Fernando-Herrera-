@@ -1,34 +1,40 @@
-import {StackScreenProps} from '@react-navigation/stack';
-import React, {useEffect} from 'react';
-import {Text, View} from 'react-native';
-import {RootStackParam} from '../navigator/StackNavigator';
-import {styles} from '../themes/appTheme';
+import { StackScreenProps } from '@react-navigation/stack';
+import React, { useEffect } from 'react'
+import { View, Text } from 'react-native';
 
-// interface RouteParams {
-//   id: number;
-//   nombre: string;
-//   edad: string;
+import { RootStackParams } from '../navigator/StackNavigator';
+import { styles } from '../theme/appTheme';
+
+// interface RouterParams {
+//     id: number;
+//     nombre: string
 // }
 
-interface Props extends StackScreenProps<RootStackParam, 'PersonaScreen'> {}
+interface Props extends StackScreenProps<RootStackParams, 'PersonaScreen'>{};
 
-const PersonaScreen = ({route, navigation}: Props) => {
-  // const params = route.params as RouteParams;
-  const params = route.params;
-  useEffect(() => {
-    navigation.setOptions({
-      title: params.nombre,
-    });
-  }),
-    [];
-  return (
-    <View style={styles.globalMargin}>
-      <Text style={styles.title}>Persona</Text>
-      <Text>Id: {params.id}</Text>
-      <Text>Nombre: {params.nombre}</Text>
-      <Text>Edad: {params.edad}</Text>
-    </View>
-  );
-};
+export const PersonaScreen = ( { route, navigation }: Props ) => {
 
-export default PersonaScreen;
+    // const params = route.params as RouterParams;
+    const params = route.params;
+
+    useEffect( () => {
+
+        navigation.setOptions({
+            title: params.nombre
+        })
+
+    },[])
+
+
+
+    return (
+        <View style={ styles.globalMargin }>
+            <Text style={ styles.title }>
+                {
+                    JSON.stringify( params, null, 3 )
+                }
+
+            </Text>
+        </View>
+    )
+}
